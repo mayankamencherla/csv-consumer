@@ -7,3 +7,5 @@ object_id,object_type,timestamp,object_changes
 2,Product,1484731671,"{\"name\":\"Microphones\",\"price\":160,\"stock_levels\":1500}"
 1,Invoice,1484731920,"{\"order_id\":7,\"product_ids\":[1,5,3],\"status\":\"unpaid\",\"total\":2500}"
 1,Invoice,1484732821,"{\"status\":\"paid\"}"
+2,Order,1484830623,"{\"customer_name\":\"Sam\",\"customer_address\":\"Gecko St.\",\"status\":\"paid\"}"
+2,Order,1484750623,"{\"customer_name\":\"Sam\",\"customer_address\":\"Gecko St.\",\"status\":\"paid\"}"

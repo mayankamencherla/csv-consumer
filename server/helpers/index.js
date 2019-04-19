@@ -37,6 +37,7 @@ function mergeChanges(current, changes) {
         changes = JSON.parse(changes);
     }
 
+    console.log('Printing current and changes....')
     console.log(current, changes);
 
     changes = Object.assign(current, changes);
