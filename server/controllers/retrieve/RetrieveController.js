@@ -16,6 +16,12 @@ module.exports.controller = (app) => {
             changes = result.changes;
         }
 
-        res.json({"Success": changes !== "null", "result": JSON.parse(JSON.parse(changes))});
+        changes = JSON.parse(changes);
+
+        if (typeof changes === 'string') {
+            changes = JSON.parse(changes);
+        }
+
+        res.json({"Success": changes !== "null", "result": changes});
     });
 };
