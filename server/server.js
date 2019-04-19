@@ -65,6 +65,10 @@ fs.readdirSync(path.join(__dirname, 'controllers')).forEach((directory) => {
     });
 });
 
+app.get('*', (req, res) => {
+  res.json({"Success": true});
+});
+
 server.listen(3000, () => {
     console.log('Server is hosted on 3000');
 });
