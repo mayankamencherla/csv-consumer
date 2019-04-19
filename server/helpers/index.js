@@ -27,8 +27,15 @@ function mergeChanges(current, changes) {
         return changes;
     }
 
-    var current = JSON.parse(JSON.parse(current.changes));
-    var changes = JSON.parse(JSON.parse(changes));
+    var current = JSON.parse(current.changes);
+    if (typeof current === 'string') {
+        current = JSON.parse(current);
+    }
+
+    var changes = JSON.parse(changes);
+    if (typeof changes === 'string') {
+        changes = JSON.parse(changes);
+    }
 
     console.log(current, changes);
 
@@ -39,8 +46,29 @@ function mergeChanges(current, changes) {
     return JSON.stringify(changes);
 }
 
+function duplicatedEntity(current, past) {
+    if (past === undefined) return false;
+
+    past = past.changes;
+
+    var current = JSON.parse(current);
+    if (typeof current === 'string') {
+        current = JSON.parse(current);
+    }
+    past = JSON.parse(past);
+    if (typeof past === 'string') {
+        past = JSON.parse(past);
+    }
+
+    current = JSON.stringify(current);
+    past = JSON.stringify(past);
+
+    return current == past;
+}
+
 module.exports = {
     getItems,
     getItem,
-    mergeChanges
+    mergeChanges,
+    duplicatedEntity
 };

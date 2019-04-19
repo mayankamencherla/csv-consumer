@@ -1,6 +1,6 @@
 const csv = require('csvtojson');
 const ObjectModel = require('../../models/object.model');
-const {getItem, mergeChanges} = require('../../helpers');
+const {getItem, mergeChanges, duplicatedEntity} = require('../../helpers');
 
 module.exports.controller = (app) => {
 
@@ -35,6 +35,9 @@ module.exports.controller = (app) => {
             var current = await getItem(object.object_type, object.object_id, object.timestamp);
 
             object.changes = mergeChanges(current, columns[3]);
+
+            // We don't want to save into the DB double entities
+            if (duplicatedEntity(object.changes, current)) return;
 
             object.save((err) => {
                 if (err){
