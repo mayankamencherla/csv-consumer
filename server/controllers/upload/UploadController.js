@@ -12,6 +12,8 @@ module.exports.controller = (app) => {
 
         console.log('Request to add objects to the DB');
 
+        var count = 0;
+
         // Streaming to avoid loading entire csv in memory
         await csv({output: "line"}).fromFile(path).subscribe(async (row) => {
 
@@ -44,10 +46,11 @@ module.exports.controller = (app) => {
                     console.log(`Object ${object.id} was not saved successfully`);
                     return next(err);
                 }
+                count++;
                 console.log(`Object ${object.id} saved successfully`);
             })
         })
 
-        res.json({"Success": true});
+        res.json({"Success": true, "count": count});
     });
 };
