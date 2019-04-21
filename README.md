@@ -43,6 +43,8 @@ $ npm start
 
 6. Head over to <a href="http://localhost:3000" target="_blank">localhost:3000</a> on your browser to see Success = true
 
+7. To use this app on heroku, please head over to <a href="https://protected-basin-69617.herokuapp.com" target="_blank">heroku</a>
+
 ## Environment variables
 Environment variables are picked up from the .env file, which must be created in the app's root directory.
 
@@ -53,11 +55,11 @@ Some key environment variables are listed and explained below:
 ## API's available on this app
 > This app supports 2 API's currently
 
-1. POST <a href="http://localhost:3000/csv" target="_blank">/csv</a>
+1. POST <a href="https://protected-basin-69617.herokuapp.com/csv" target="_blank">/csv</a>
     - Allows your to upload your CSV via to be stored in the DB
     - The file needs to be uploaded via the file post parameter
 
-2. GET <a href="http://localhost:3000/query" target="_blank">/query</a>
+2. GET <a href="https://protected-basin-69617.herokuapp.com/query" target="_blank">/query</a>
     - allows you to fetch the state of an entity that is saved in the DB at a particular timestamp
     - If there is no state for the entity at the time instant, null is returned
     - Required parameters are type, id and timestamp
