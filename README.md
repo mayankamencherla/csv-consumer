@@ -57,9 +57,10 @@ Some key environment variables are listed and explained below:
 
 1. POST <a href="https://protected-basin-69617.herokuapp.com/csv" target="_blank">/csv</a>
     - Allows your to upload your CSV via to be stored in the DB
-    - The file needs to be uploaded via the file post parameter
+    - The file needs to be uploaded via the *file* post parameter
 
 2. GET <a href="https://protected-basin-69617.herokuapp.com/query" target="_blank">/query</a>
     - allows you to fetch the state of an entity that is saved in the DB at a particular timestamp
     - If there is no state for the entity at the time instant, null is returned
     - Required parameters are type, id and timestamp
+    - Example: https://protected-basin-69617.herokuapp.com/query?type=Invoice&id=1&timestamp=1484733920
