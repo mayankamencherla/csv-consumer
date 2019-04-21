@@ -50,14 +50,13 @@ module.exports.controller = (app) => {
             // We don't want to save into the DB double entities
             if (duplicatedEntity(object.changes, current)) return;
 
-            object.save((err) => {
-                if (err){
-                    console.log(`Object ${object.id} was not saved successfully`);
-                    return next(err);
-                }
+            try {
+                await object.save();
                 count++;
                 console.log(`Object ${object.id} saved successfully`);
-            })
+            } catch (e) {
+                console.log(`Object ${object.id} was not saved successfully`);
+            }
         })
 
         res.json({"Success": true, "count": count});
