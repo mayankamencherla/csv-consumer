@@ -47,6 +47,24 @@ function mergeChanges(current, changes) {
     return JSON.stringify(changes);
 }
 
+function validateCsvInput(request) {
+    if (request.files === null) return false;
+
+    else if (!request.files.hasOwnProperty('file')) return false;
+
+    return true;
+}
+
+function validateQueryInput(query) {
+    if (!query.hasOwnProperty('type') ||
+        !query.hasOwnProperty('id') ||
+        !query.hasOwnProperty('timestamp')) {
+        return false;
+    }
+
+    return true;
+}
+
 function duplicatedEntity(current, past) {
     if (past === undefined) return false;
 
@@ -71,5 +89,7 @@ module.exports = {
     getItems,
     getItem,
     mergeChanges,
-    duplicatedEntity
+    duplicatedEntity,
+    validateCsvInput,
+    validateQueryInput
 };

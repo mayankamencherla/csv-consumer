@@ -1,4 +1,4 @@
-const {getItem} = require('../../helpers');
+const {getItem, validateQueryInput} = require('../../helpers');
 
 module.exports.controller = (app) => {
 
@@ -6,7 +6,15 @@ module.exports.controller = (app) => {
      * Retrieves an entity based on input parameters
      */
     app.get('/query', async (req, res, next) => {
-        // TODO: Validate that the req params contains type, id and timestamp
+        if (!validateQueryInput(req.query)) {
+            res.json({
+                "Success": false,
+                "message": "type, id and timestamp need to be passed in the query params"
+            });
+
+            return;
+        }
+
         console.log(`Request to retrieve ${req.query.type} ${req.query.id} at ${req.query.timestamp}`);
 
         var result = await getItem(req.query.type, req.query.id, req.query.timestamp);

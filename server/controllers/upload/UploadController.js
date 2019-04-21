@@ -1,6 +1,6 @@
 const csv = require('csvtojson');
 const ObjectModel = require('../../models/object.model');
-const {getItem, mergeChanges, duplicatedEntity} = require('../../helpers');
+const {getItem, mergeChanges, duplicatedEntity, validateCsvInput} = require('../../helpers');
 
 module.exports.controller = (app) => {
 
@@ -8,6 +8,15 @@ module.exports.controller = (app) => {
      * Takes in the file input and saves the data in the DB
      */
     app.post('/csv', async (req, res, next) => {
+        if (!validateCsvInput(req)) {
+            res.json({
+                "Success": false,
+                "message": "File needs to be updloaded via the file parameter in the request"
+            });
+
+            return;
+        }
+
         const path = req.files.file.tempFilePath;
 
         console.log('Request to add objects to the DB');
