@@ -17,7 +17,11 @@ module.exports.controller = (app) => {
 
         console.log(`Request to retrieve ${req.query.type} ${req.query.id} at ${req.query.timestamp}`);
 
-        var result = await getItem(req.query.type, req.query.id, req.query.timestamp);
+        try {
+            var result = await getItem(req.query.type, req.query.id, req.query.timestamp);
+        } catch (e) {
+            console.log('Error retrieving item : ' + e);
+        }
 
         let changes = "null";
         if (result !== undefined) {

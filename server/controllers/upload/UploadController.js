@@ -43,7 +43,12 @@ module.exports.controller = (app) => {
                 changes: columns[3]
             })
 
-            var current = await getItem(object.object_type, object.object_id, object.timestamp);
+            var current = undefined;
+            try {
+                current = await getItem(object.object_type, object.object_id, object.timestamp);
+            } catch (e) {
+                console.log('Error retrieving item : ' + e);
+            }
 
             object.changes = mergeChanges(current, columns[3]);
 
