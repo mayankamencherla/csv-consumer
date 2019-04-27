@@ -48,7 +48,7 @@ function mergeChanges(current, changes) {
 }
 
 function validateCsvInput(request) {
-    if (request.files === null && request.files === undefined) return false;
+    if (request.files === null || request.files === undefined) return false;
 
     else if (!request.files.hasOwnProperty('file')) return false;
 
