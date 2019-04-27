@@ -88,4 +88,45 @@ describe('Test upload route', () => {
 
         rimraf.sync(__dirname + '/tmp');
     })
+
+    it('should not save duplicate data into the DB', async () => {
+        var data = 'object_id,object_type,timestamp,object_changes';
+        for (var i=0; i<5; i++) {
+            data += "\n";
+            const type = `object_type_${new Date().getTime()}`;
+            const ts = new Date().getTime();
+            const changes = {
+                key1: chance.string(),
+                key2: chance.string(),
+            }
+            const row = `${i},${type},${ts},${JSON.stringify(changes)}`;
+            data += row + "\n" + row;
+        }
+
+        if (!fs.existsSync(__dirname + '/tmp')) {
+            fs.mkdirSync(__dirname + '/tmp');
+        }
+
+        const path = __dirname + `/tmp/file_${new Date().getTime()}`;
+
+        try {
+            await writeFile(path, data);
+        } catch (e) {
+            console.log('Unable to write file');
+            return Promise.reject();
+        }
+
+        request(app)
+            .post('/csv')
+            .attach('file', path)
+            .expect(200)
+            .end((err, res) => {
+                const results = res.body;
+                expect(results.Success).toEqual(true);
+                expect(results.count).toEqual(5);
+                done();
+            });
+
+        rimraf.sync(__dirname + '/tmp');
+    })
 });
