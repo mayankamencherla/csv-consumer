@@ -10,7 +10,6 @@ const rimraf                 = require('rimraf');
 require('util.promisify').shim();
 
 const {app}                  = require('./../server');
-const ObjectModel            = require('../models/object.model');
 
 const writeFile = util.promisify(fs.writeFile);
 const chance = new Chance();
