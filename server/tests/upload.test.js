@@ -74,16 +74,10 @@ describe('Test upload route', () => {
             return Promise.reject();
         }
 
-        request(app)
-            .post('/csv')
-            .attach('file', path)
-            .expect(200)
-            .end((err, res) => {
-                const results = res.body;
-                expect(results.Success).toEqual(true);
-                expect(results.count).toEqual(10);
-                done();
-            });
+        const response = await request(app).post('/csv').attach('file', path);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.Success).toEqual(true);
+        expect(response.body.count).toEqual(10);
 
         rimraf.sync(__dirname + '/tmp');
     })
@@ -115,16 +109,10 @@ describe('Test upload route', () => {
             return Promise.reject();
         }
 
-        request(app)
-            .post('/csv')
-            .attach('file', path)
-            .expect(200)
-            .end((err, res) => {
-                const results = res.body;
-                expect(results.Success).toEqual(true);
-                expect(results.count).toEqual(5);
-                done();
-            });
+        const response = await request(app).post('/csv').attach('file', path);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.Success).toEqual(true);
+        expect(response.body.count).toEqual(5);
 
         rimraf.sync(__dirname + '/tmp');
     })

@@ -15,7 +15,7 @@ const ObjectModel            = require('../models/object.model');
 const writeFile = util.promisify(fs.writeFile);
 const chance = new Chance();
 
-describe('Test upload route', () => {
+describe('Test retrieve route', () => {
 
     it('should assert that timestamp not in the query param', (done) => {
 
@@ -63,5 +63,39 @@ describe('Test upload route', () => {
                 expect(results.message).toEqual("type, id and timestamp need to be passed in the query params");
                 done();
             });
+    });
+
+    it('should not retrieve invalid query', async () => {
+        var data = 'object_id,object_type,timestamp,object_changes';
+        for (var i=0; i<10; i++) {
+            data += "\n";
+            const type = `object_type_${new Date().getTime()}`;
+            const ts = new Date().getTime();
+            const changes = {
+                key1: chance.string(),
+                key2: chance.string(),
+            }
+            data += `${i},${type},${ts},${JSON.stringify(changes)}`;
+        }
+
+        if (!fs.existsSync(__dirname + '/tmp')) {
+            fs.mkdirSync(__dirname + '/tmp');
+        }
+
+        const path = __dirname + `/tmp/file_${new Date().getTime()}`;
+
+        try {
+            await writeFile(path, data);
+        } catch (e) {
+            console.log('Unable to write file');
+            return Promise.reject();
+        }
+
+        const results = await request(app).get('/query?timestamp=123123123&id=23123&type=asdasd').send();
+        expect(results.statusCode).toEqual(200);
+        expect(results.body.Success).toEqual(true);
+        expect(results.body.result).toEqual(null);
+
+        rimraf.sync(__dirname + '/tmp');
     });
 });
