@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "test": "nyc --reporter=html --reporter=text --cache mocha server/**/*.test.js --exit"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +19,9 @@
     "express-rate-limit": "^3.4.1",
     "mongodb": "^3.2.3",
     "mongoose": "^5.5.2"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4",
+    "nyc": "^14.0.0"
   }
 }
