@@ -50,7 +50,7 @@ describe('Test upload route', () => {
 
     it('should save all data into the DB', async () => {
         var data = 'object_id,object_type,timestamp,object_changes';
-        for (var i=0; i<10; i++) {
+        for (var i=0; i<4; i++) {
             data += "\n";
             const type = `object_type_${new Date().getTime()}`;
             const ts = new Date().getTime();
@@ -77,14 +77,14 @@ describe('Test upload route', () => {
         const response = await request(app).post('/csv').attach('file', path);
         expect(response.statusCode).toEqual(200);
         expect(response.body.Success).toEqual(true);
-        expect(response.body.count).toEqual(10);
+        expect(response.body.count).toEqual(4);
 
         rimraf.sync(__dirname + '/tmp');
     })
 
     it('should not save duplicate data into the DB', async () => {
         var data = 'object_id,object_type,timestamp,object_changes';
-        for (var i=0; i<5; i++) {
+        for (var i=0; i<2; i++) {
             data += "\n";
             const type = `object_type_${new Date().getTime()}`;
             const ts = new Date().getTime();
@@ -112,7 +112,7 @@ describe('Test upload route', () => {
         const response = await request(app).post('/csv').attach('file', path);
         expect(response.statusCode).toEqual(200);
         expect(response.body.Success).toEqual(true);
-        expect(response.body.count).toEqual(5);
+        expect(response.body.count).toEqual(2);
 
         rimraf.sync(__dirname + '/tmp');
     })
