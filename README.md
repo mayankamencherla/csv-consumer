@@ -1,5 +1,6 @@
 # CSV Consumer
 
+[![Build Status](https://travis-ci.org/mayankamencherla/csv-consumer.svg?branch=master)](https://travis-ci.org/mayankamencherla/csv-consumer)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- [![Packagist](https://img.shields.io/packagist/v/symfony/symfony.svg)]() -->
